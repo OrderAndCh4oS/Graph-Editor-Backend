@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "es5",
+      "es6",
+      "es7"
+    ]
+  }
+}

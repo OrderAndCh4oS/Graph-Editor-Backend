@@ -1,0 +1,45 @@
+{
+  "description": "Node Express Sequelize and GraphQL App Starter",
+  "author": {
+    "name": "Sean Cooper",
+    "email": "sean@orderanchaoscreative.com",
+    "url": "https://orderandchaoscreative.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "node -r ts-node/register",
+    "test": "export MYSQL_HOST=127.0.0.1; export MYSQL_PORT=3307; export ORM_LOGGING=false; jest --config=./jest.config.js --runInBand",
+    "test-with-coverage": "yarn test -- --verbose --coverage",
+    "test-watch": "yarn test -- --watch"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "cookie-session": "^2.0.0-beta.3",
+    "dataloader-sequelize": "^1.7.6",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^0.13.0",
+    "graphql-relay": "^0.5.5",
+    "graphql-sequelize": "^9.3.3",
+    "mysql2": "^1.6.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^4.42.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "@types/cookie-session": "^2.0.36",
+    "@types/dotenv": "^6.1.0",
+    "@types/express": "^4.16.0",
+    "@types/graphql": "^14.0.4",
+    "@types/jest": "^23.3.11",
+    "@types/node": "^10.12.15",
+    "@types/passport": "^1.0.0",
+    "jest": "^23.6.0",
+    "sqlite3": "^4.0.4",
+    "supertest": "^3.3.0",
+    "ts-jest": "^23.10.5"
+  }
+}

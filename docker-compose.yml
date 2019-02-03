@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    image: mysql:8
+    container_name: graphene-js-node-model
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: graphene_js_node_db
+      MYSQL_ROOT_PASSWORD: too_secret
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: too_secret
+
+  web:
+    build: .
+    image: graphene-js-node:1
+    container_name: graphene-js-node
+    ports:
+      - 3000:3000
+    env_file: ./app/.env
+    volumes:
+      - ./app:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - db
+    command: "nodemon src/server.ts --watch 'src/**/*.ts' --exec 'ts-node'"
