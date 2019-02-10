@@ -1,4 +1,4 @@
-export const DATABASE = process.env.MYSQL_DATABASE || 'graphene_js_node_db';
+export const DATABASE = process.env.MYSQL_DATABASE || 'graph_editor_db';
 export const USER = process.env.MYSQL_USER || 'admin';
 export const PASSWORD = process.env.MYSQL_PASSWORD || 'too_secret';
 export const HOST = process.env.MYSQL_HOST || 'model';

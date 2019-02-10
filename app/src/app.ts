@@ -1,6 +1,6 @@
 import {config} from 'dotenv';
 import routes from './routes';
-import model from "./model";
+import db from "./model";
 import localStrategy from "./authentication/local-strategy";
 import express = require('express');
 import cookieSession = require('cookie-session');
@@ -29,7 +29,7 @@ passport.serializeUser(function(user, done) {
 });
 passport.deserializeUser(function(id, done) {
     // @ts-ignore
-    model.user.findByPk(id).then((user) => {
+    db.user.findByPk(id).then((user) => {
         done(null, user);
     });
 });

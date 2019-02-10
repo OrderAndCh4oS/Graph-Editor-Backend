@@ -11,4 +11,5 @@ RUN npm install -g typescript
 RUN npm install -g node-pre-gyp
 RUN npm install
 
-CMD [ "ts-node",  "./src/server.js"]
+CMD [ "ts-node",  "./src/orm/create-database.ts"]
+CMD [ "ts-node",  "./src/server.ts"]

@@ -1,7 +1,7 @@
 import * as Sequelize from "sequelize";
 import {UserModel} from "./user-model";
 import * as mysql from "../constants/mysql";
-import {TaskModel} from "./task-model";
+import {ModelModel} from "./model-model";
 
 // Todo: Finish setup from: https://grokonez.com/node-js/sequelize/angular-6-httpclient-node-js-express-restapis-mariadb-example-sequelize-orm-crud-apis-example
 
@@ -20,17 +20,17 @@ const sequelize = new Sequelize(
     });
 
 const user = UserModel(sequelize, Sequelize);
-const task = TaskModel(sequelize, Sequelize);
-user.task = user.hasMany(task, {as: 'tasks'});
+const model = ModelModel(sequelize, Sequelize);
+user.model = user.hasMany(model, {as: 'models'});
 
-const model = {
+const db = {
     user,
-    task
+    model
 };
 
 // @ts-ignore
-model.Sequelize = Sequelize;
+db.Sequelize = Sequelize;
 // @ts-ignore
-model.sequelize = sequelize;
+db.sequelize = sequelize;
 
-export default model;
+export default db;

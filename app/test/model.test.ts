@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import model from "../src/model";
+import db from "../src/model";
 import app from "../src/app";
 import {authFailGet, authFailPost, authFailPut, login, successTests} from "./utility";
 
@@ -8,83 +8,83 @@ import {authFailGet, authFailPost, authFailPut, login, successTests} from "./uti
 // Todo: Some clues here regarding async hang up: https://github.com/visionmedia/supertest/issues/520
 
 
-describe('Auth Test Suite', () => {
+describe('Model Test Suite', () => {
 
-    describe('POST /task - Create a Task', () => {
+    describe('POST /model - Create a Model', () => {
         const agent = request.agent(app);
         const user = {
             username: 'timothy',
             password: 'too_secret'
         };
-        const task = {title: "Do this", description: "This needs to be done"};
+        const model = {title: "Do this", description: "This needs to be done"};
 
         beforeAll(async () => {
-            await model.user.create(user)
+            await db.user.create(user);
         });
 
         it('Returns 401 Status if User is not logged in',
-            authFailPost(agent, '/task', task)
+            authFailPost(agent, '/model', model)
         );
 
         it('Should start with signin',
             login(agent, user)
         );
 
-        it('Returns 200 Status and the created task if User is logged in', async () => {
+        it('Returns 200 Status and the created model if User is logged in', async () => {
             // @ts-ignore
             const result = await agent
-                .post('/task')
-                .send(task)
+                .post('/model')
+                .send(model)
                 .set('Accept', 'application/json');
 
             successTests(result);
             expect(result.body.data.title).toBeDefined();
-            expect(result.body.data.title).toEqual(task.title);
+            expect(result.body.data.title).toEqual(model.title);
             expect(result.body.data.description).toBeDefined();
-            expect(result.body.data.description).toEqual(task.description);
+            expect(result.body.data.description).toEqual(model.description);
         });
     });
 
-    describe('PUT /task - Update an existing Task', () => {
+    describe('PUT /model - Update an existing Model', () => {
         const agent = request.agent(app);
         const user = {
             username: 'jeremy',
             password: 'too_secret'
         };
-        const task = {
+        const model = {
             id: 1,
             title: "Do this now",
             description: "This needs to be done ASAP"
         };
 
         beforeAll(async () => {
-            await model.user.create(user)
+            await db.user.create(user)
         });
 
         it('Returns 401 Status if User is not logged in',
-            authFailPut(agent, '/task/1', task)
+            authFailPut(agent, '/model/1', model)
         );
 
         it('Should start with signin',
             login(agent, user)
         );
 
-        it('Returns 200 Status and the created task if User is logged in', async () => {
+        it('Returns 200 Status and the created model if User is logged in', async () => {
             // @ts-ignore
             const result = await agent
-                .put('/task/1')
-                .send(task)
+                .put('/model/1')
+                .send(model)
                 .set('Accept', 'application/json');
 
             successTests(result);
             expect(result.body.data.title).toBeDefined();
-            expect(result.body.data.title).toEqual(task.title);
+            expect(result.body.data.title).toEqual(model.title);
             expect(result.body.data.description).toBeDefined();
-            expect(result.body.data.description).toEqual(task.description);
+            expect(result.body.data.description).toEqual(model.description);
         });
     });
 
-    describe('GET /task - View Task List', () => {
+    describe('GET /model - View Model List', () => {
         const agent = request.agent(app);
         const user = {
             username: 'duncan',
@@ -92,21 +92,21 @@ describe('Auth Test Suite', () => {
         };
 
         beforeAll(async () => {
-            await model.user.create(user)
+            await db.user.create(user)
         });
 
         it('Returns 401 Status if User is not logged in',
-            authFailGet(agent, '/task')
+            authFailGet(agent, '/model')
         );
 
         it('Should start with signin',
             login(agent, user)
         );
 
-        it('Returns 200 Status and a list of Tasks if User is logged in', async () => {
+        it('Returns 200 Status and a list of Models if User is logged in', async () => {
             // @ts-ignore
             const result = await agent
-                .get('/task')
+                .get('/model')
                 .set('Accept', 'application/json');
 
             successTests(result);
@@ -115,7 +115,7 @@ describe('Auth Test Suite', () => {
         });
     });
 
-    describe('GET /task/:id - View Task Detail', () => {
+    describe('GET /model/:id - View Model Detail', () => {
         const agent = request.agent(app);
         const user = {
             username: 'yanis',
@@ -123,21 +123,21 @@ describe('Auth Test Suite', () => {
         };
 
         beforeAll(async () => {
-            await model.user.create(user)
+            await db.user.create(user)
         });
 
         it('Returns 401 Status if User is not logged in',
-            authFailGet(agent, '/task/1')
+            authFailGet(agent, '/model/1')
         );
 
         it('Should start with signin',
             login(agent, user)
         );
 
-        it('Returns 200 Status and a list of Tasks if User is logged in', async () => {
+        it('Returns 200 Status and a list of Models if User is logged in', async () => {
             // @ts-ignore
             const result = await agent
-                .get('/task/1')
+                .get('/model/1')
                 .set('Accept', 'application/json');
 
             successTests(result);

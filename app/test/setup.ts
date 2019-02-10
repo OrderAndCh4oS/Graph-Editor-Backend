@@ -1,14 +1,14 @@
-import model from "../src/model";
+import db from "../src/model";
 
 beforeEach(async () => {
     // @ts-ignore
-    await model.sequelize.sync();
+    await db.sequelize.sync();
 });
 
 afterAll(async (done) => {
     // @ts-ignore
-    await model.sequelize.sync({force: true});
+    await db.sequelize.sync({force: true});
     // @ts-ignore
-    model.sequelize.close();
+    db.sequelize.close();
     done();
 });

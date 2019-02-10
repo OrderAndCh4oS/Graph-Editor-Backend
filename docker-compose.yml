@@ -2,23 +2,23 @@ version: '2'
 services:
   db:
     image: mysql:8
-    container_name: graphene-js-node-model
+    container_name: graph-editor-db
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
       - 3307:3306
     environment:
-      MYSQL_DATABASE: graphene_js_node_db
+      MYSQL_DATABASE: graph_editor_db
       MYSQL_ROOT_PASSWORD: too_secret
       MYSQL_USER: admin
       MYSQL_PASSWORD: too_secret
 
   web:
     build: .
-    image: graphene-js-node:1
-    container_name: graphene-js-node
+    image: graph_editor:1
+    container_name: graph_editor
     ports:
-      - 3000:3000
+      - 4000:4000
     env_file: ./app/.env
     volumes:
       - ./app:/usr/app

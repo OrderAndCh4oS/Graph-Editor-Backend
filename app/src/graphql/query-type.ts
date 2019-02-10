@@ -1,13 +1,13 @@
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLString} from 'graphql';
 import {resolver} from "graphql-sequelize";
 
-import model from "../model";
+import db from "../model";
 
 // Todo: Look into implementing https://github.com/mickhansen/graphql-sequelize
 // Todo: Look into implementing https://github.com/mickhansen/dataloader-sequelize
 
-const TaskType = new GraphQLObjectType({
-    name: 'Tasks',
+const ModelType = new GraphQLObjectType({
+    name: 'Models',
     description: 'Users of the App',
     // @ts-ignore
     fields: {
@@ -24,9 +24,9 @@ const UserType = new GraphQLObjectType({
     fields: {
         id: {type: GraphQLInt},
         username: {type: GraphQLString},
-        tasks: {
-            type: new GraphQLList(TaskType),
-            resolve: resolver(model.user.task)
+        models: {
+            type: new GraphQLList(ModelType),
+            resolve: resolver(db.user.model)
         }
     }
 });
@@ -50,25 +50,25 @@ const QueryType = new GraphQLObjectType({
                     description: 'User id'
                 }
             },
-            resolve: resolver(model.user)
+            resolve: resolver(db.user)
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve: resolver(model.user)
+            resolve: resolver(db.user)
         },
-        task: {
-            type: TaskType,
+        model: {
+            type: ModelType,
             args: {
                 id: {
                     type: GraphQLNonNull(GraphQLInt),
                     description: 'User id'
                 }
             },
-            resolve: resolver(model.task)
+            resolve: resolver(db.model)
         },
-        tasks: {
-            type: new GraphQLList(TaskType),
-            resolve: resolver(model.task)
+        models: {
+            type: new GraphQLList(ModelType),
+            resolve: resolver(db.model)
         }
     }
 });

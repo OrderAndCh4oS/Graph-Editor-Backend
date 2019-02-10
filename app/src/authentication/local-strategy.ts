@@ -1,10 +1,10 @@
 const LocalStrategy = require('passport-local').Strategy;
-import model from "../model";
+import db from "../model";
 
 const localStrategy = new LocalStrategy(
     (username, password, done) => {
         // @ts-ignore
-        model.user.scope('withPassword').findOne({where: {username}})
+        db.user.scope('withPassword').findOne({where: {username}})
             .then(
                 (user) => {
                     if (!user) {

@@ -1,9 +1,9 @@
 import {DataTypes, Sequelize} from "sequelize";
-import {descriptionValidation, titleValidation} from "../validation/task-validation";
+import {descriptionValidation, titleValidation} from "../validation/model-validation";
 
-export const TaskModel = (sequelize: Sequelize, type: DataTypes) => {
+export const ModelModel = (sequelize: Sequelize, type: DataTypes) => {
     return sequelize.define(
-        'task',
+        'model',
         {
             title: {
                 type: type.STRING(60),
