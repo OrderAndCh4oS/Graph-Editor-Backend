@@ -5,6 +5,10 @@ export const NodeModel = (sequelize: Sequelize, type: DataTypes) => {
     return sequelize.define(
         'node',
         {
+            uuid: {
+                type: type.UUID,
+                primaryKey: true
+            },
             id: {
                 type: type.STRING(15),
                 validate: labelValidation,

@@ -4,9 +4,15 @@ import {hidePasswordHash} from '../service/password-utilities';
 import db from '../model';
 import dataResponse from '../response/data';
 import validationErrorResponse from "../response/validation-error";
+import BaseController from "./base-controller";
 
-export default class UserController {
-    static register = (req: Request, res: Response) => {
+export default class UserController extends BaseController {
+
+    constructor() {
+        super(db.user);
+    }
+
+    create = (req: Request, res: Response) => {
         db.user.create(req.body)
             .then(user => {
                 user = hidePasswordHash(user);
@@ -15,10 +21,6 @@ export default class UserController {
             .catch(ValidationError, err => {
                 validationErrorResponse(res, err);
             });
-    };
-
-    static update = (req, res) => {
-
     };
 }
 

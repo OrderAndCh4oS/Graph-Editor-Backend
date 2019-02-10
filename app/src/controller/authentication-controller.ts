@@ -6,7 +6,7 @@ import messageResponse from "../response/message";
 const passport = require('passport');
 
 export default class AuthenticationController {
-    static login = (req, res, next) => {
+    login = (req, res, next) => {
         if (!(req.body.hasOwnProperty('username') && (req.body.hasOwnProperty('password')))) {
             return errorResponse(res, 'Username and Password parameters required in json request')
         }
@@ -22,7 +22,7 @@ export default class AuthenticationController {
     };
 
 
-    static logout = (req, res) => {
+    logout = (req, res) => {
         req.logout();
         return messageResponse(res, 'Logged out')
     };

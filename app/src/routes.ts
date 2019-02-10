@@ -18,15 +18,15 @@ const routes = (app) => {
         // @ts-ignore
         context: {[EXPECTED_OPTIONS_KEY]: createContext(db.sequelize)}
     }));
-    app.post('/register', UserController.register);
-    app.post('/login', AuthenticationController.login);
-    app.get('/logout', AuthenticationController.logout);
-    app.get('/admin', authenticateUser, AdminController.admin);
-    app.post('/model', authenticateUser, ModelController.create);
-    app.put('/model/:id', authenticateUser, ModelController.update);
-    app.delete('/model/:id', authenticateUser, ModelController.destroy);
-    app.get('/model', authenticateUser, ModelController.list);
-    app.get('/model/:id', authenticateUser, ModelController.detail);
+    app.post('/register', (new UserController()).create);
+    app.post('/login', (new AuthenticationController()).login);
+    app.get('/logout', (new AuthenticationController()).logout);
+    app.get('/admin', authenticateUser, (new AdminController()).admin);
+    app.post('/model', authenticateUser, (new ModelController()).create);
+    app.put('/model/:id', authenticateUser, (new ModelController()).update);
+    app.delete('/model/:id', authenticateUser, (new ModelController()).destroy);
+    app.get('/model', authenticateUser, (new ModelController()).list);
+    app.get('/model/:id', authenticateUser, (new ModelController()).detail);
 };
 
 export default routes;
