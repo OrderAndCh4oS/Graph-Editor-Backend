@@ -1,7 +1,7 @@
 import * as request from 'supertest';
 import db from "../src/model";
 import app from "../src/app";
-import {authFailGet, authFailPost, authFailPut, login, successTests} from "./utility";
+import {authFailGet, authFailPost, authFailPut, login, successDataTest, successResponseTests} from "./utility";
 
 // Todo: look up Jest setup files: https://jestjs.io/docs/en/configuration.html#setupfiles-array
 
@@ -37,11 +37,9 @@ describe('Model Test Suite', () => {
                 .send(model)
                 .set('Accept', 'application/json');
 
-            successTests(result);
-            expect(result.body.data.title).toBeDefined();
-            expect(result.body.data.title).toEqual(model.title);
-            expect(result.body.data.description).toBeDefined();
-            expect(result.body.data.description).toEqual(model.description);
+            successResponseTests(result);
+            successDataTest(model, result);
+
         });
     });
 
@@ -76,11 +74,8 @@ describe('Model Test Suite', () => {
                 .send(model)
                 .set('Accept', 'application/json');
 
-            successTests(result);
-            expect(result.body.data.title).toBeDefined();
-            expect(result.body.data.title).toEqual(model.title);
-            expect(result.body.data.description).toBeDefined();
-            expect(result.body.data.description).toEqual(model.description);
+            successResponseTests(result);
+            successDataTest(model, result);
         });
     });
 
@@ -109,7 +104,7 @@ describe('Model Test Suite', () => {
                 .get('/model')
                 .set('Accept', 'application/json');
 
-            successTests(result);
+            successResponseTests(result);
             expect(result.body.data.count).toBeDefined();
             expect(result.body.data.rows).toBeDefined();
         });
@@ -140,7 +135,7 @@ describe('Model Test Suite', () => {
                 .get('/model/1')
                 .set('Accept', 'application/json');
 
-            successTests(result);
+            successResponseTests(result);
             expect(result.body.data.id).toBeDefined();
             expect(result.body.data.title).toBeDefined();
             expect(result.body.data.description).toBeDefined();

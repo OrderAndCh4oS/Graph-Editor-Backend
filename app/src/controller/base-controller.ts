@@ -22,7 +22,7 @@ export default class BaseController {
     };
 
     update = (req: Request, res: Response) => {
-        this._model.findById(req.params.id).then(model =>
+        this._model.findByPk(req.params.id).then(model =>
             model.update(req.body)
                 .then(model => {
                     return dataResponse(res, model);
@@ -34,7 +34,7 @@ export default class BaseController {
     };
 
     destroy = (req: Request, res: Response) => {
-        this._model.findById(req.params.id).then(model =>
+        this._model.findByPk(req.params.id).then(model =>
             model.update(req.body)
                 .then(model => {
                     return dataResponse(res, model);

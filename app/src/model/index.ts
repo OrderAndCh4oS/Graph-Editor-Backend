@@ -25,6 +25,7 @@ const model = ModelModel(sequelize, Sequelize);
 const node = NodeModel(sequelize, Sequelize);
 user.model = user.hasMany(model, {as: 'models'});
 model.node = model.hasMany(node, {as: 'nodes'});
+node.model = node.belongsTo(model);
 
 const db = {
     user,

@@ -12,9 +12,10 @@ export default class NodeController extends BaseController {
     }
 
     create = (req: Request, res: Response) => {
-        db.model.findById(req.params.id).then(model => {
+        db.model.findByPk(req.params.id).then(model => {
             this._model.create(req.body)
                 .then(node => {
+                    console.log(node);
                     model.setNodes([node]);
                     return dataResponse(res, node);
                 })
@@ -22,5 +23,24 @@ export default class NodeController extends BaseController {
                     validationErrorResponse(res, err);
                 });
         });
+    };
+
+    update = (req: Request, res: Response) => {
+        this._model.findByPk(req.params.id).then(model =>
+            model.update(req.body)
+                .then(model => {
+                    return dataResponse(res, model);
+                })
+                .catch(ValidationError, err => {
+                    validationErrorResponse(res, err);
+                })
+        );
+    };
+
+
+    list = (req: Request, res: Response) => {
+        this._model.findAndCountAll({where: {modelId: req.params.id}}).then(result => {
+            return dataResponse(res, result);
+        })
     };
 }

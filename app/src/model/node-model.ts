@@ -1,5 +1,5 @@
 import {DataTypes, Sequelize} from "sequelize";
-import {labelValidation} from "../validation/model-validation";
+import {text} from "../validation/validation";
 
 export const NodeModel = (sequelize: Sequelize, type: DataTypes) => {
     return sequelize.define(
@@ -7,74 +7,78 @@ export const NodeModel = (sequelize: Sequelize, type: DataTypes) => {
         {
             uuid: {
                 type: type.UUID,
-                primaryKey: true
+                primaryKey: true,
+                defaultValue: type.UUIDV4
             },
             id: {
                 type: type.STRING(15),
-                validate: labelValidation,
+                validate: text(1, 15, 'identifier'),
                 allowNull: false,
                 defaultValue: '',
             },
             label: {
-                type: type.STRING(15),
-                validate: labelValidation,
+                type: type.STRING(40),
+                validate: text(0, 40, 'label'),
                 allowNull: false,
                 defaultValue: '',
             },
             prefix: {
                 type: type.STRING(5),
-                validate: labelValidation,
+                validate: text(0, 5,'prefix'),
                 allowNull: true,
                 defaultValue: null,
             },
             suffix: {
                 type: type.STRING(5),
-                validate: labelValidation,
+                validate: text(0, 5, 'suffix'),
                 allowNull: true,
                 defaultValue: null,
             },
             title: {
-                type: type.STRING(40),
-                validate: labelValidation,
+                type: type.STRING(140),
+                validate: text(0, 140),
                 allowNull: false,
                 defaultValue: '',
             },
             color: {
                 type: type.STRING(7),
-                validate: labelValidation,
+                validate: text(7, 7),
                 allowNull: false,
                 defaultValue: '#31448d',
             },
             value: {
                 type: type.DOUBLE,
-                validate: labelValidation,
                 allowNull: true,
+                validate: {
+                    isNumeric: true
+                },
                 defaultValue: null,
             },
             conv: {
-                type: type.DOUBLE, validate: labelValidation,
+                type: type.DOUBLE,
+                validate: {
+                    isNumeric: true
+                },
                 allowNull: false,
                 defaultValue: 1,
             },
             min: {
-                type: type.FLOAT, validate: labelValidation,
+                type: type.FLOAT,
                 allowNull: true,
                 defaultValue: null,
             },
             max: {
-                type: type.FLOAT, validate: labelValidation,
+                type: type.FLOAT,
                 allowNull: true,
                 defaultValue: null,
             },
             step: {
                 type: type.FLOAT,
-                validate: labelValidation,
                 allowNull: true,
                 defaultValue: null,
             },
             equn: {
                 type: type.STRING(100),
-                validate: labelValidation,
                 allowNull: true,
                 defaultValue: null,
             }

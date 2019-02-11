@@ -6,10 +6,18 @@ function authFailTests(result) {
     expect(result.body.message).toEqual("Auth failed.");
 }
 
-export function successTests(result) {
+export function successResponseTests(result) {
     expect(result.statusCode).toBe(200);
     expect(result.body).toBeDefined();
     expect(result.body.data).toBeDefined();
+}
+
+export function successDataTest(obj, result) {
+    // @ts-ignore
+    for (const [key, value] of Object.entries(obj)) {
+        expect(result.body.data[key]).toBeDefined();
+        expect(result.body.data[key]).toEqual(value);
+    }
 }
 
 export const authFailGet = (agent, endpoint) => async () => {
