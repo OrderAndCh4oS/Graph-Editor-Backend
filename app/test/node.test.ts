@@ -35,7 +35,7 @@ describe('Node Test Suite', () => {
                 prefix: null,
             },
             {
-                id: 'percent_cat_owners',
+                id: 'percDogOwners',
                 label: 'Percentage of Dog Owners',
                 suffix: 'm',
                 title: 'Percentage of Households in the UK that are Dog Owners',
@@ -49,8 +49,8 @@ describe('Node Test Suite', () => {
                 prefix: null
             },
             {
-                id: 'average_cats',
-                label: 'Average Number of Dogs per Household',
+                id: 'averageDogs',
+                label: 'Average Number of Dogs',
                 suffix: 'm',
                 title: 'Average Number of Dogs per Household in the UK',
                 color: '#67da88',
@@ -73,7 +73,7 @@ describe('Node Test Suite', () => {
                 min: null,
                 max: null,
                 step: null,
-                equn: '({households}*{percent_cat_owners})*{average_cat}',
+                equn: '({households}*{percDogOwners})*{averageDog}',
                 prefix: null,
             }
         ];
@@ -104,6 +104,18 @@ describe('Node Test Suite', () => {
             successResponseTests(result);
             successDataTest(nodes[0], result);
         });
+
+        it('Returns 200 Status and the all nodes on the model when posting and array of nodes if User is logged in', async () => {
+            // @ts-ignore
+            const result = await agent
+                .post('/model/1/node')
+                .send(nodes)
+                .set('Accept', 'application/json');
+
+            successResponseTests(result);
+            expect(result.body.data).toBeDefined();
+            // Todo: Write a better test to check array
+        });
     });
 
     describe('PUT /node - Update an existing Node', () => {
@@ -113,8 +125,8 @@ describe('Node Test Suite', () => {
             password: 'too_secret'
         };
         const model = {
-            title: "Dogs in UK",
-            description: "Something about dogs."
+            title: "Cats in UK",
+            description: "Something about cats."
         };
         const nodes = [
             {
@@ -132,10 +144,10 @@ describe('Node Test Suite', () => {
                 prefix: null,
             },
             {
-                id: 'percent_dog_owners',
-                label: 'Percentage of Dog Owners',
+                id: 'percCatOwners',
+                label: 'Percentage of Cat Owners',
                 suffix: 'm',
-                title: 'Percentage of Households in the UK that are Dog Owners',
+                title: 'Percentage of Households in the UK that are Cat Owners',
                 color: '#67da88',
                 value: 0.27,
                 conv: 100,
@@ -146,10 +158,10 @@ describe('Node Test Suite', () => {
                 prefix: null
             },
             {
-                id: 'average_dogs',
-                label: 'Average Number of Dogs per Household',
+                id: 'averageCats',
+                label: 'Average Number of Cats',
                 suffix: 'm',
-                title: 'Average Number of Dogs per Household in the UK',
+                title: 'Average Number of Cats per Household in the UK',
                 color: '#67da88',
                 value: 2.1,
                 conv: 1,
@@ -160,17 +172,17 @@ describe('Node Test Suite', () => {
                 prefix: null
             },
             {
-                id: 'dogs',
-                label: 'No. of Dogs',
+                id: 'cats',
+                label: 'No. of Cats',
                 suffix: 'm',
-                title: 'Number of Dogs in the UK',
+                title: 'Number of Cats in the UK',
                 color: '#da7a2f',
                 value: null,
                 conv: 0.000001,
                 min: null,
                 max: null,
                 step: null,
-                equn: '({households}*{percent_cat_owners})*{average_cat}',
+                equn: '({households}*{percCatOwners})*{averageCat}',
                 prefix: null,
             }
         ];

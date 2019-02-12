@@ -13,15 +13,24 @@ export default class NodeController extends BaseController {
 
     create = (req: Request, res: Response) => {
         db.model.findByPk(req.params.id).then(model => {
-            this._model.create(req.body)
-                .then(node => {
-                    console.log(node);
-                    model.setNodes([node]);
-                    return dataResponse(res, node);
-                })
-                .catch(ValidationError, err => {
+            if (Array.isArray(req.body)) {
+                this._model.bulkCreate(req.body).then(() => { // Notice: There are no arguments here, as of right now you'll have to...
+                    return this._model.findAll({where: {modelId: model.id}});
+                }).then(nodes => {
+                    return dataResponse(res, nodes);
+                }).catch(ValidationError, err => {
                     validationErrorResponse(res, err);
                 });
+            } else {
+                this._model.create(req.body)
+                    .then(node => {
+                        model.setNodes([node]);
+                        return dataResponse(res, node);
+                    })
+                    .catch(ValidationError, err => {
+                        validationErrorResponse(res, err);
+                    });
+            }
         });
     };
 
@@ -36,7 +45,6 @@ export default class NodeController extends BaseController {
                 })
         );
     };
-
 
     list = (req: Request, res: Response) => {
         this._model.findAndCountAll({where: {modelId: req.params.id}}).then(result => {
