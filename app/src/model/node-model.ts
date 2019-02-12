@@ -56,9 +56,6 @@ export const NodeModel = (sequelize: Sequelize, type: DataTypes) => {
             },
             conv: {
                 type: type.DOUBLE,
-                validate: {
-                    isNumeric: true
-                },
                 allowNull: false,
                 defaultValue: 1,
             },

@@ -2,7 +2,7 @@ import db from "../model";
 
 export const syncSchema = () => {
     // @ts-ignore
-    db.sequelize.sync()
+    return db.sequelize.sync()
         .then(() => console.log('Schema built.'))
         .catch(err => {
             console.log(err.name);
