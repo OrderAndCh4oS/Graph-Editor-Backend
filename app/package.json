@@ -13,8 +13,10 @@
     "test-watch": "yarn test -- --watch"
   },
   "dependencies": {
+    "@types/cors": "^2.8.4",
     "bcrypt": "^3.0.2",
     "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.5",
     "dataloader-sequelize": "^1.7.6",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",

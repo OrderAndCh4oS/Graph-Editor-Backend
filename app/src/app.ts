@@ -5,12 +5,18 @@ import localStrategy from "./authentication/local-strategy";
 import express = require('express');
 import cookieSession = require('cookie-session');
 
+const cors = require('cors');
 const passport = require('passport');
 
 // Todo: Separate Server and App: https://stackoverflow.com/a/53712305/2562137
 
 config();
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200
+}));
 
 app.disable('x-powered-by');
 
@@ -20,7 +26,6 @@ app.use(cookieSession({
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
-
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(function(user, done) {

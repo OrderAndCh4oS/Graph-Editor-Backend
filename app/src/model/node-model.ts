@@ -24,7 +24,7 @@ export const NodeModel = (sequelize: Sequelize, type: DataTypes) => {
             },
             prefix: {
                 type: type.STRING(5),
-                validate: text(0, 5,'prefix'),
+                validate: text(0, 5, 'prefix'),
                 allowNull: true,
                 defaultValue: null,
             },
@@ -50,13 +50,16 @@ export const NodeModel = (sequelize: Sequelize, type: DataTypes) => {
                 type: type.DOUBLE,
                 allowNull: true,
                 validate: {
-                    isNumeric: true
+                    isDecimal: true
                 },
                 defaultValue: null,
             },
             conv: {
                 type: type.DOUBLE,
                 allowNull: false,
+                validate: {
+                    isDecimal: true
+                },
                 defaultValue: 1,
             },
             min: {

@@ -14,17 +14,17 @@ const routes = (app) => {
     app.get('/logout', (new AuthenticationController()).logout);
     app.get('/admin', authenticateUser, (new AdminController()).admin);
 
+    app.get('/model', (new ModelController()).list);
+    app.get('/model/:id', (new ModelController()).detail);
     app.post('/model', authenticateUser, (new ModelController()).create);
-    app.get('/model', authenticateUser, (new ModelController()).list);
     app.put('/model/:id', authenticateUser, (new ModelController()).update);
     app.delete('/model/:id', authenticateUser, (new ModelController()).destroy);
-    app.get('/model/:id', authenticateUser, (new ModelController()).detail);
 
+    app.get('/model/:id/node', (new NodeController()).list);
+    app.get('/node/:id', (new NodeController()).detail);
     app.post('/model/:id/node', authenticateUser, (new NodeController()).create);
-    app.get('/model/:id/node', authenticateUser, (new NodeController()).list);
     app.put('/node/:id', authenticateUser, (new NodeController()).update);
     app.delete('/node/:id', authenticateUser, (new NodeController()).destroy);
-    app.get('/node/:id', authenticateUser, (new NodeController()).detail);
 };
 
 export default routes;
