@@ -2,21 +2,22 @@ import {config} from 'dotenv';
 import routes from './routes';
 import db from "./model";
 import localStrategy from "./authentication/local-strategy";
+import {allowedHost} from "./constants/server";
 import express = require('express');
 import cookieSession = require('cookie-session');
 
 const cors = require('cors');
 const passport = require('passport');
 
-// Todo: Separate Server and App: https://stackoverflow.com/a/53712305/2562137
-
 config();
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200
+    origin: allowedHost,
+    optionsSuccessStatus: 200,
+    credentials: true
 }));
+app.options('*', cors());
 
 app.disable('x-powered-by');
 
