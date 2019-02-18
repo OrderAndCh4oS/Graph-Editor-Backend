@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 require('dotenv').config({path: '../../.env'});
 
 import {syncSchema} from './sync-schema';
@@ -8,12 +10,9 @@ import railPublic from "../data/models/rail-public";
 import manure from "../data/models/manure";
 import plastics from "../data/models/plastics";
 import languageStudents from "../data/models/language-students";
-import * as mysql from "../constants/mysql";
-
-console.log(mysql.HOST);
 
 function createModelAndNodes(user, title, description, nodeData) {
-    db.model.create({title, description})
+    return db.model.create({title, description})
         .then(model => {
             user.setModels([model]);
             for (const node of nodeData) {

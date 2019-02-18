@@ -12,25 +12,38 @@ export default class NodeController extends BaseController {
     }
 
     create = (req: Request, res: Response) => {
-        db.model.findByPk(req.params.id).then(model => {
-            if (Array.isArray(req.body)) {
-                this._model.bulkCreate(req.body).then(() => { // Notice: There are no arguments here, as of right now you'll have to...
-                    return this._model.findAll({where: {modelId: model.id}});
-                }).then(nodes => {
-                    return dataResponse(res, nodes);
-                }).catch(ValidationError, err => {
-                    validationErrorResponse(res, err);
-                });
-            } else {
-                this._model.create(req.body)
-                    .then(node => {
-                        model.setNodes([node]);
-                        return dataResponse(res, node);
-                    })
-                    .catch(ValidationError, err => {
-                        validationErrorResponse(res, err);
-                    });
-            }
+        const modelId = req.params.id;
+        req.body.map(b => {
+            console.log(b.uuid, b.id, b.title);
+            const sql = `
+                INSERT INTO 
+                   nodes(uuid, id, title, label, prefix, suffix, color, value, conv, min, max, equn, modelId, createdAt, updatedAt) 
+                VALUES 
+                   (:uuid, :id, :title, :label, :prefix, :suffix, :color, :value, :conv, :min, :max, :equn, :modelId, NOW(), NOW()) 
+                ON DUPLICATE KEY UPDATE
+                     id = :id,
+                     title = :title,
+                     label = :label,
+                     prefix = :prefix,
+                     suffix = :suffix,
+                     color = :color,
+                     value = :value,
+                     conv = :conv,
+                     min = :min,
+                     max = :max,
+                     equn = :equn,
+                     modelId = :modelId,
+                     updatedAt = NOW();
+
+            `;
+            // @ts-ignore
+            db.sequelize.query(sql, {replacements: {...b, modelId}}).spread((results, metadata) => {
+                // Results will be an empty array and metadata will contain the number of affected rows.
+                console.log(results, metadata);
+            });
+        });
+        this._model.findAll({where: {modelId}}).then(nodes => {
+            return dataResponse(res, nodes);
         });
     };
 
@@ -41,7 +54,7 @@ export default class NodeController extends BaseController {
                     return dataResponse(res, model);
                 })
                 .catch(ValidationError, err => {
-                    validationErrorResponse(res, err);
+                    return validationErrorResponse(res, err);
                 })
         );
     };
