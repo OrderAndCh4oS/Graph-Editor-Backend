@@ -14,7 +14,6 @@ export default class NodeController extends BaseController {
     create = (req: Request, res: Response) => {
         const modelId = req.params.id;
         req.body.map(b => {
-            console.log(b.uuid, b.id, b.title);
             const sql = `
                 INSERT INTO 
                    nodes(uuid, id, title, label, prefix, suffix, color, value, conv, min, max, equn, modelId, createdAt, updatedAt) 
@@ -34,7 +33,6 @@ export default class NodeController extends BaseController {
                      equn = :equn,
                      modelId = :modelId,
                      updatedAt = NOW();
-
             `;
             // @ts-ignore
             db.sequelize.query(sql, {replacements: {...b, modelId}}).spread((results, metadata) => {

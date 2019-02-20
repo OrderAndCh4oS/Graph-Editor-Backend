@@ -13,15 +13,24 @@ export default class UserController extends BaseController {
     }
 
     create = (req: Request, res: Response) => {
+        if (req.body.password !== req.body.confirmPassword) {
+            return validationErrorResponse(res, {
+                errors: [{
+                    message: 'Passwords do not match',
+                    path: 'password',
+                    value: req.body,
+                    type: 'Validation Error'
+                }]
+            });
+        }
         db.user.create(req.body)
             .then(user => {
                 user = hidePasswordHash(user);
                 return dataResponse(res, user);
             })
             .catch(ValidationError, err => {
-                validationErrorResponse(res, err);
+                return validationErrorResponse(res, err);
             });
-    };
+    }
+    ;
 }
-
-
