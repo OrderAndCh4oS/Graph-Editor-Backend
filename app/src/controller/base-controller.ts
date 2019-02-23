@@ -1,6 +1,5 @@
 import {Request, Response} from 'express';
 import {ValidationError} from 'sequelize';
-import db from '../model';
 import dataResponse from '../response/data';
 import validationErrorResponse from "../response/validation-error";
 
@@ -52,7 +51,8 @@ export default class BaseController {
     };
 
     detail = (req: Request, res: Response) => {
-        this._model.findById(req.params.id).then(model => {
+        const scope = req.query.scope || null;
+        this._model.scope(scope).findByPk(req.params.id).then(model => {
             return dataResponse(res, model);
         })
     };
