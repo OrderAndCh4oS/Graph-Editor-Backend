@@ -27,6 +27,7 @@ user.model = user.hasMany(model, {as: 'models'});
 model.node = model.hasMany(node, {as: 'nodes'});
 node.model = node.belongsTo(model);
 
+
 model.addScope('withNodes', {
     include: {
         model: node,
