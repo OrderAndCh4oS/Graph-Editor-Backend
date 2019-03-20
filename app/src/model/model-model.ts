@@ -1,5 +1,5 @@
 import {DataTypes, Sequelize} from "sequelize";
-import {descriptionValidation, titleValidation} from "../validation/model-validation";
+import {descriptionValidation, titleValidation, fullTextValidation} from "../validation/model-validation";
 
 export const ModelModel = (sequelize: Sequelize, type: DataTypes) => {
     return sequelize.define(
@@ -14,6 +14,12 @@ export const ModelModel = (sequelize: Sequelize, type: DataTypes) => {
             description: {
                 type: type.STRING(255),
                 validate: descriptionValidation,
+                allowNull: false,
+                defaultValue: '',
+            },
+            fullText: {
+                type: type.TEXT,
+                validate: fullTextValidation,
                 allowNull: false,
                 defaultValue: '',
             }

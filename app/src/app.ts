@@ -13,7 +13,7 @@ config();
 const app = express();
 
 app.use(cors({
-    origin: allowedHost,
+    origin: allowedHost.split(','),
     optionsSuccessStatus: 200,
     credentials: true
 }));
