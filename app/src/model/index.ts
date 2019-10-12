@@ -20,9 +20,9 @@ const sequelize = new Sequelize(
         },
     });
 
-const user = UserModel(sequelize, Sequelize);
-const model = ModelModel(sequelize, Sequelize);
-const node = NodeModel(sequelize, Sequelize);
+const user: any = UserModel(sequelize, Sequelize);
+const model: any = ModelModel(sequelize, Sequelize);
+const node: any = NodeModel(sequelize, Sequelize);
 user.model = user.hasMany(model, {as: 'models'});
 model.user = model.belongsTo(user);
 model.node = model.hasMany(node, {as: 'nodes'});

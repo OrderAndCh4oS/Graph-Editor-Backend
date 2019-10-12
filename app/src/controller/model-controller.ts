@@ -14,6 +14,7 @@ export default class ModelController extends BaseController {
     create = (req: Request, res: Response) => {
         this._model.create(req.body)
             .then(model => {
+                // @ts-ignore
                 req.user.setModels([model]);
                 return dataResponse(res, model);
             })

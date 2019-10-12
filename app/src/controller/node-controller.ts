@@ -53,7 +53,7 @@ export default class NodeController extends BaseController {
                 include: {
                     model: db.user,
                     where: {
-                        id: req.user.id
+                        id: req.user['id']
                     }
                 }
             }

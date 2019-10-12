@@ -1,4 +1,4 @@
-import {createContext, EXPECTED_OPTIONS_KEY} from 'dataloader-sequelize';
+// import {createContext, EXPECTED_OPTIONS_KEY} from 'dataloader-sequelize';
 
 import UserController from './controller/user-controller';
 import ModelController from './controller/model-controller';
@@ -8,7 +8,7 @@ import {authenticateUser} from "./middleware/authentication-middleware";
 import NodeController from "./controller/node-controller";
 
 const routes = (app) => {
-    app.get('/', (req, res) => res.json({message: 'Hello World!'}));
+    app.get('/', (_, res) => res.json({message: 'Hello World!'}));
     app.post('/register', (new UserController()).create);
     app.post('/login', (new AuthenticationController()).login);
     app.get('/logout', (new AuthenticationController()).logout);

@@ -26,7 +26,7 @@ export default class BaseController {
     update = (req: Request, res: Response) => {
         this._model.findByPk(req.params.id).then(item => {
                 // Todo: consider moving this to a middleware
-                if (item.userId !== req.user.id) {
+                if (item.userId !== req.user['id']) {
                     return errorResponse(res, 'This model belongs to another user.', statusCode.FORBIDDEN);
                 }
                 return item.update(req.body)
@@ -41,7 +41,7 @@ export default class BaseController {
     };
 
     destroy = (req: Request, res: Response) => {
-        this._model.destroy({where: {uuid: req.params.id, userId: req.user.id}})
+        this._model.destroy({where: {uuid: req.params.id, userId: req.user['id']}})
             .then(deleted => {
                 if (deleted !== 1) {
                     return errorResponse(res, 'Not Found', statusCode.NOT_FOUND)

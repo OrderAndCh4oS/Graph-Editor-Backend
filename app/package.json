@@ -13,8 +13,7 @@
     "test-watch": "yarn test -- --watch"
   },
   "dependencies": {
-    "@types/cors": "^2.8.4",
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.6",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.5",
     "dataloader-sequelize": "^1.7.6",
@@ -28,10 +27,10 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "sequelize": "^4.42.0",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.2.2"
+    "sequelize-typescript": "^0.6.11"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.4",
     "@types/cookie-session": "^2.0.36",
     "@types/dotenv": "^6.1.0",
     "@types/express": "^4.16.0",
@@ -42,6 +41,8 @@
     "jest": "^23.6.0",
     "sqlite3": "^4.0.4",
     "supertest": "^3.3.0",
-    "ts-jest": "^23.10.5"
+    "ts-jest": "^23.10.5",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
   }
 }
