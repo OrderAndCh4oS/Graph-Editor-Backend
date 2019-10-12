@@ -26,8 +26,7 @@
     "mysql2": "^1.6.4",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^4.42.0",
-    "sequelize-typescript": "^0.6.11"
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.4",
