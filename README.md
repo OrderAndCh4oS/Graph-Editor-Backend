@@ -1,4 +1,8 @@
+# Graph Editor API 
+
 Backend for Graph Editor, a Node Express app using Sequelize and GraphQL. All wrapped up in a docker image.
+
+The frontend can be found here: https://github.com/sarcoma/Graph-Editor
 
 ## Set Up
 
