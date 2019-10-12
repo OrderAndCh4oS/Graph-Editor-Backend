@@ -4,6 +4,8 @@ Backend for Graph Editor, a Node Express app using Sequelize and GraphQL. All wr
 
 The frontend can be found here: https://github.com/sarcoma/Graph-Editor
 
+Demo site: https://grapheditor.orderandchaoscreative.com/
+
 ## Set Up
 
 Grab repo: `git clone git@github.com:sarcoma/Graph-Editor-Backend.git`
