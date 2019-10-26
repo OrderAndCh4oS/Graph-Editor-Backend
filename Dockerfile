@@ -12,5 +12,6 @@ RUN npm install -g ts-node
 RUN npm install -g nodemon
 RUN npm install
 
-CMD [ "ts-node",  "./src/orm/create-database.ts"]
+RUN chmod +x app/bin/*
+
 CMD [ "ts-node",  "./src/server.ts"]

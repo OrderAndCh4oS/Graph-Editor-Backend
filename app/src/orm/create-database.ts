@@ -11,26 +11,29 @@ import manure from "../data/models/manure";
 import plastics from "../data/models/plastics";
 import languageStudents from "../data/models/language-students";
 
-function createModelAndNodes(user, title, description, nodeData) {
-    return db.model.create({title, description})
-        .then(model => {
-            user.setModels([model]);
-            for (const node of nodeData) {
-                db.node.create(node)
-                    .then(n => model.setNodes([n]));
-            }
-        });
-}
+export const createDatabase = () => {
+    const createModelAndNodes = (user, title, description, nodeData) =>
+        db.model.create({title, description})
+            .then(model => {
+                user.setModels([model]);
+                for (const node of nodeData) {
+                    db.node.create(node)
+                        .then(n => model.setNodes([n]));
+                }
+            });
 
-syncSchema().then(() =>
-    db.user.create({
-        username: 'Sean',
-        password: 'too_secret'
-    }).then(user => {
-        createModelAndNodes(user, 'Rail Fares Neutral', 'Blah blah blah', railNeutral);
-        createModelAndNodes(user, 'Rail Fares Private', 'Blah blah blah', railPrivate);
-        createModelAndNodes(user, 'Rail Fares Public', 'Blah blah blah', railPublic);
-        createModelAndNodes(user, 'Manure', 'Blah blah blah', manure);
-        createModelAndNodes(user, 'Plastics', 'Blah blah blah', plastics);
-        createModelAndNodes(user, 'Language Students', 'Blah blah blah', languageStudents);
-    }));
+    syncSchema(true).then(() =>
+        db.user.create({
+            username: 'Sean',
+            password: 'too_secret'
+        }).then(async user => {
+            await createModelAndNodes(user, 'Rail Fares Neutral', 'Blah blah blah', railNeutral);
+            await createModelAndNodes(user, 'Rail Fares Private', 'Blah blah blah', railPrivate);
+            await createModelAndNodes(user, 'Rail Fares Public', 'Blah blah blah', railPublic);
+            await createModelAndNodes(user, 'Manure', 'Blah blah blah', manure);
+            await createModelAndNodes(user, 'Plastics', 'Blah blah blah', plastics);
+            await createModelAndNodes(user, 'Language Students', 'Blah blah blah', languageStudents);
+        }).then(() => {
+            process.exit()
+        }));
+};
