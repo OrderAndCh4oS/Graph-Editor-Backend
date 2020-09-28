@@ -12,6 +12,6 @@ RUN npm install -g ts-node
 RUN npm install -g nodemon
 RUN npm install
 
-RUN chmod +x app/bin/*
+RUN chmod +x bin/*
 
 CMD [ "ts-node",  "./src/server.ts"]
